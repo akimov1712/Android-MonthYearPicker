@@ -7,7 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import ru.topbun.customviewyearandmonthpicker.R
 import ru.topbun.customviewyearandmonthpicker.databinding.ItemPickBinding
 
-class PickAdapter: ListAdapter<PickEntity, PickViewHolder>(PickDiffCallback()) {
+class PickAdapter(
+    private val backgroundActiveItem: Int,
+    private val backgroundDisactiveItem: Int,
+    private val textColorActiveItem: Int,
+    private val textColorDisactiveItem: Int,
+): ListAdapter<PickEntity, PickViewHolder>(PickDiffCallback()) {
 
     var setItemClickListener: ((Int) -> Unit)? = null
 
@@ -22,13 +27,11 @@ class PickAdapter: ListAdapter<PickEntity, PickViewHolder>(PickDiffCallback()) {
         with(holder.binding){
             btnPick.text = item.value
             if (item.isEnabled){
-                btnPick.setTextColor(holder.itemView.context.getColor(R.color.white))
-                btnPick.backgroundTintList =
-                    holder.itemView.context.getColorStateList(R.color.default_purple)
+                btnPick.setTextColor(textColorActiveItem)
+                btnPick.setBackgroundResource(backgroundActiveItem)
             } else {
-                btnPick.setTextColor(holder.itemView.context.getColor(R.color.default_grey))
-                btnPick.backgroundTintList =
-                    holder.itemView.context.getColorStateList(R.color.white)
+                btnPick.setBackgroundResource(backgroundDisactiveItem)
+                btnPick.setTextColor(textColorDisactiveItem)
             }
         }
         holder.itemView.setOnClickListener {

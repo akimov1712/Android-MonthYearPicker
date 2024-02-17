@@ -1,121 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_gravity="center"
-    app:cardCornerRadius="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".screen.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ru.topbun.customviewyearandmonthpicker.view.YearMonthPicker
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minWidth="330dp">
+        android:layout_height="wrap_content"
+        android:minWidth="330dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@color/white"
+        android:elevation="4dp"
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="Month Picker"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:textTitle="topbun"
+        app:textSizeTitle="28sp"
+        app:colorTitle="#FF55D5"
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_choice_month"
-            style="@style/styleTextButton"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_button_filled"
-            android:text="JAN"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:textNegativeButton="Отменчик"
+        app:colorTextNegativeButton="@color/white"
+        app:backgroundNegativeButton="@drawable/background_button_active"
+        app:backgroundTintNegativeButton="#E11818"
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_choice_year"
-            style="@style/styleTextButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/background_button_stroke"
-            android:text="2023"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_choice_month"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_choice_month"
-            app:layout_constraintTop_toTopOf="@+id/btn_choice_month" />
+        app:textPositiveButton="Чивапчича"
+        app:colorTextPositiveButton="@color/black"
+        app:backgroundPositiveButton="@color/white"
+        app:backgroundTintPositiveButton="@color/white"
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="230dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/btn_choice_year"
-            app:layout_constraintStart_toStartOf="@+id/btn_choice_month"
-            app:layout_constraintTop_toBottomOf="@+id/btn_choice_month">
+        app:backgroundActiveButton="@drawable/background_button_active"
+        app:backgroundDisactiveButton="@drawable/background_button_disactive"
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_month"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/item_pick" />
+        app:colorTextActiveButton="@color/black"
+        app:colorTextDisactiveButton="@color/white"
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_year"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/item_pick" />
+        app:backgroundTintActiveButton="#FFD500"
+        app:backgroundTintDisactiveButton="#6AFF00"
 
-        </LinearLayout>
+        app:backgroundActiveItem="@drawable/background_active_item"
+        app:colorTextActiveItem="#4D9DFF"
 
+        app:colorTextDisactiveItem="#FA8787"
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_dismiss"
-            style="@style/styleTextButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/background_button_stroke"
-            android:text="Dismiss"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_confirm"
-            style="@style/styleTextButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_button_filled"
-            android:text="Confirm"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_dismiss"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_dismiss"
-            app:layout_constraintTop_toTopOf="@+id/btn_dismiss" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

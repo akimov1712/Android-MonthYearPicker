@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="YearMonthPicker">
+        <attr name="textTitle" format="string"/>
+        <attr name="colorTitle" format="color"/>
+        <attr name="textSizeTitle" format="dimension"/>
+
+        <attr name="textPositiveButton" format="string"/>
+        <attr name="textNegativeButton" format="string"/>
+        <attr name="colorTextPositiveButton" format="color"/>
+        <attr name="colorTextNegativeButton" format="color"/>
+
+        <attr name="backgroundPositiveButton" format="reference"/>
+        <attr name="backgroundNegativeButton" format="reference"/>
+        <attr name="backgroundTintPositiveButton" format="color"/>
+        <attr name="backgroundTintNegativeButton" format="color"/>
+
+        <attr name="colorTextActiveButton" format="color"/>
+        <attr name="colorTextDisactiveButton" format="color"/>
+
+        <attr name="backgroundActiveButton" format="reference"/>
+        <attr name="backgroundDisactiveButton" format="reference"/>
+        <attr name="backgroundTintActiveButton" format="color"/>
+        <attr name="backgroundTintDisactiveButton" format="color"/>
+
+        <attr name="backgroundActiveItem" format="reference|color"/>
+        <attr name="backgroundDisactiveItem" format="reference|color"/>
+        <attr name="colorTextActiveItem" format="color"/>
+        <attr name="colorTextDisactiveItem" format="color"/>
+
+    </declare-styleable>
+
+</resources>

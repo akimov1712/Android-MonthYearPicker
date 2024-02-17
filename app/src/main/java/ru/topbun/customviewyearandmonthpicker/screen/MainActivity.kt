@@ -14,21 +14,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         openDialog()
-        binding.btn.setOnClickListener {
-            openDialog()
-        }
     }
 
     private fun openDialog(){
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
         val dialogPicker = PickerDialogFragment()
-        dialogPicker.setListenersInButton({
-            binding.btn.text = formatTimeMillis(it)
-            dialogPicker.dismiss()
-        },{
-            dialogPicker.dismiss()
-        })
-        dialogPicker.show(fragmentTransaction, "dialogPicker")
+//        dialogPicker.setListenersInButton({
+//            binding.btn.text = formatTimeMillis(it)
+//            dialogPicker.dismiss()
+//        },{
+//            dialogPicker.dismiss()
+//        })
+        supportFragmentManager.beginTransaction().add(R.id.container_fragment, dialogPicker).commit()
     }
 
 }

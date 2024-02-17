@@ -2,6 +2,8 @@
 <resources>
 
     <declare-styleable name="YearMonthPicker">
+
+        <attr name="isShowTitle" format="boolean"/>
         <attr name="textTitle" format="string"/>
         <attr name="colorTitle" format="color"/>
         <attr name="textSizeTitle" format="dimension"/>
@@ -24,8 +26,8 @@
         <attr name="backgroundTintActiveButton" format="color"/>
         <attr name="backgroundTintDisactiveButton" format="color"/>
 
-        <attr name="backgroundActiveItem" format="reference|color"/>
-        <attr name="backgroundDisactiveItem" format="reference|color"/>
+        <attr name="backgroundActiveItem" format="reference"/>
+        <attr name="backgroundDisactiveItem" format="reference"/>
         <attr name="colorTextActiveItem" format="color"/>
         <attr name="colorTextDisactiveItem" format="color"/>
 

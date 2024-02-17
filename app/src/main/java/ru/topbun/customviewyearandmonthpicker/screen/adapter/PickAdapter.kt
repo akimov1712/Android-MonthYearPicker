@@ -8,10 +8,10 @@ import ru.topbun.customviewyearandmonthpicker.R
 import ru.topbun.customviewyearandmonthpicker.databinding.ItemPickBinding
 
 class PickAdapter(
-    private val backgroundActiveItem: Int,
-    private val backgroundDisactiveItem: Int,
-    private val textColorActiveItem: Int,
-    private val textColorDisactiveItem: Int,
+    var backgroundActiveItem: Int,
+    var backgroundDisactiveItem: Int,
+    var textColorActiveItem: Int,
+    var textColorDisactiveItem: Int,
 ): ListAdapter<PickEntity, PickViewHolder>(PickDiffCallback()) {
 
     var setItemClickListener: ((Int) -> Unit)? = null

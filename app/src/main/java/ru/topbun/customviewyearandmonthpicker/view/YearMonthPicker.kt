@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import ru.topbun.customviewyearandmonthpicker.Const
 import ru.topbun.customviewyearandmonthpicker.R
 import ru.topbun.customviewyearandmonthpicker.databinding.MonthYearPickerBinding
@@ -16,6 +17,14 @@ import ru.topbun.customviewyearandmonthpicker.screen.adapter.PickAdapter
 import ru.topbun.customviewyearandmonthpicker.utils.getCurrentMonth
 import ru.topbun.customviewyearandmonthpicker.utils.getCurrentYear
 import ru.topbun.customviewyearandmonthpicker.utils.getTimeMillisFromMonthAndYear
+import ru.topbun.customviewyearandmonthpicker.utils.pxToSp
+import ru.topbun.customviewyearandmonthpicker.utils.spToPp
+
+enum class BottomButtonAction{
+    POSITIVE, NEGATIVE
+}
+
+typealias OnBottomButtonClickListener = (bottomAction: BottomButtonAction, timeMillis: Long) -> Unit
 
 class YearMonthPicker @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
@@ -56,8 +65,7 @@ class YearMonthPicker @JvmOverloads constructor(
     private var choiceMonth = getCurrentMonth()
     private var choiceYear = getCurrentYear().toString()
 
-    private var setOnConfirmClickListener: ((Long) -> Unit)? = null
-    private var setOnDismissClickListener: (() -> Unit)? = null
+    private var listener: OnBottomButtonClickListener? = null
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -111,14 +119,6 @@ class YearMonthPicker @JvmOverloads constructor(
         binding.rvYear.scrollToPosition(Const.yearList.size - 1)
     }
 
-    fun setListenersInButton(
-        confirmClickListener: ((Long) -> Unit),
-        dismissClickListener: (() -> Unit)
-    ) {
-        setOnConfirmClickListener = confirmClickListener
-        setOnDismissClickListener = dismissClickListener
-    }
-
     private fun setListenersInView() {
         with(binding) {
             btnChoiceMonth.setOnClickListener {
@@ -128,11 +128,12 @@ class YearMonthPicker @JvmOverloads constructor(
                 openYearPicker()
             }
             btnNegative.setOnClickListener {
-                setOnDismissClickListener?.invoke()
+                val timeStamp = getTimeMillisFromMonthAndYear(choiceMonth, choiceYear)
+                listener?.invoke(BottomButtonAction.NEGATIVE, timeStamp)
             }
             btnPositive.setOnClickListener {
                 val timeStamp = getTimeMillisFromMonthAndYear(choiceMonth, choiceYear)
-                setOnConfirmClickListener?.invoke(timeStamp)
+                listener?.invoke(BottomButtonAction.POSITIVE, timeStamp)
             }
         }
     }
@@ -202,163 +203,293 @@ class YearMonthPicker @JvmOverloads constructor(
         typedArray.recycle()
     }
 
-    private fun MonthYearPickerBinding.setupRecyclerItem(
+    private fun setupRecyclerItem(
         typedArray: TypedArray
     ){
-        var textColorActiveItemAttrs = typedArray.getColor(
+        val textColorActiveItemAttrs = typedArray.getColor(
             R.styleable.YearMonthPicker_colorTextActiveItem,
             Color.WHITE
         )
-        textColorActiveItem = textColorActiveItemAttrs
+        setTextColorActiveItem(textColorActiveItemAttrs)
 
-        var textColorDisactiveItemAttrs = typedArray.getColor(
+        val textColorDisactiveItemAttrs = typedArray.getColor(
             R.styleable.YearMonthPicker_colorTextDisactiveItem,
             context.getColor(R.color.default_grey)
         )
-        textColorDisactiveItem = textColorDisactiveItemAttrs
+        setTextColorDisactiveItem(textColorDisactiveItemAttrs)
 
-        var backgroundActiveItemAttrs = typedArray.getResourceId(
+        val backgroundActiveItemAttrs = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundActiveItem,
             R.drawable.background_button_filled
         )
-        backgroundActiveItem = backgroundActiveItemAttrs
+        setBackgroundActiveItem(backgroundActiveItemAttrs)
 
-
-        var backgroundDisactiveItemAttrs = typedArray.getResourceId(
+        val backgroundDisactiveItemAttrs = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundDisactiveItem,
             R.color.transparent
         )
-        backgroundDisactiveItem = backgroundDisactiveItemAttrs
+        setBackgroundDisactiveItem(backgroundDisactiveItemAttrs)
     }
 
-    private fun MonthYearPickerBinding.setupToggleButtonsBackground(
+    private fun setupToggleButtonsBackground(
         typedArray: TypedArray
     ) {
         val bgActiveButtonAttr = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundActiveButton,
             R.drawable.background_button_filled
         )
-        bgActiveButton = bgActiveButtonAttr
-        btnChoiceMonth.setBackgroundResource(bgActiveButton)
+        setBackgroundActiveButton(bgActiveButtonAttr)
 
         val bgDisactiveButtonAttr = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundDisactiveButton,
             R.drawable.background_button_stroke
         )
-        bgDisactiveButton = bgDisactiveButtonAttr
-        btnChoiceYear.setBackgroundResource(bgDisactiveButton)
+        setBackgroundDisactiveButton(bgDisactiveButtonAttr)
 
         val tintActiveButtonAttr = typedArray.getColor(
             R.styleable.YearMonthPicker_backgroundTintActiveButton,
             0
         )
-        if (tintActiveButtonAttr != 0) {
-            bgTintActiveButton = tintActiveButtonAttr
-            btnChoiceMonth.backgroundTintList = ColorStateList.valueOf(bgTintActiveButton)
-        }
+        setTintActiveButton(tintActiveButtonAttr)
+
         val tintDisactiveButtonAttr = typedArray.getColor(
             R.styleable.YearMonthPicker_backgroundTintDisactiveButton,
             0
         )
-        if (tintDisactiveButtonAttr != 0) {
-            bgTintDisactiveButton = tintDisactiveButtonAttr
-            btnChoiceYear.backgroundTintList = ColorStateList.valueOf(bgTintDisactiveButton)
-        }
+        setTintDisactiveButton(tintDisactiveButtonAttr)
     }
 
-    private fun MonthYearPickerBinding.setupToggleButtonsText(
+    private fun setupToggleButtonsText(
         typedArray: TypedArray
     ) {
         val textColorActiveButtonAttr =
             typedArray.getColor(R.styleable.YearMonthPicker_colorTextActiveButton, Color.WHITE)
-        textColorActiveButton = textColorActiveButtonAttr
-        btnChoiceMonth.setTextColor(ColorStateList.valueOf(textColorActiveButton))
+        setTextColorActiveButton(textColorActiveButtonAttr)
 
         val textColorDisactiveButtonAttr =
             typedArray.getColor(R.styleable.YearMonthPicker_colorTextDisactiveButton, Color.BLACK)
-        textColorDisactiveButton = textColorDisactiveButtonAttr
-        btnChoiceYear.setTextColor(ColorStateList.valueOf(textColorDisactiveButton))
+        setTextColorDisactiveButton(textColorDisactiveButtonAttr)
     }
 
-    private fun MonthYearPickerBinding.setupBottomButtonsBackground(
+    private fun setupBottomButtonsBackground(
         typedArray: TypedArray
     ) {
         val bgPositiveButton = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundPositiveButton,
             R.drawable.background_button_filled
         )
-        btnPositive.setBackgroundResource(bgPositiveButton)
+        setBackgroundPositiveButton(bgPositiveButton)
 
         val bgNegativeButton = typedArray.getResourceId(
             R.styleable.YearMonthPicker_backgroundNegativeButton,
             R.drawable.background_button_stroke
         )
-        btnNegative.setBackgroundResource(bgNegativeButton)
+        setBackgroundNegativeButton(bgNegativeButton)
 
         val tintPositiveButton = typedArray.getColor(
             R.styleable.YearMonthPicker_backgroundTintPositiveButton,
             0
         )
-        if (tintPositiveButton != 0) {
-            btnPositive.backgroundTintList = ColorStateList.valueOf(tintPositiveButton)
-        }
+        setTintPositiveButton(tintPositiveButton)
+
         val tintNegativeButton = typedArray.getColor(
             R.styleable.YearMonthPicker_backgroundTintNegativeButton,
             0
         )
-        if (tintNegativeButton != 0) {
-            btnNegative.backgroundTintList = ColorStateList.valueOf(tintNegativeButton)
-        }
+        setTintNegativeButton(tintNegativeButton)
     }
 
-    private fun MonthYearPickerBinding.setupBottomButtonsText(
+    private fun setupBottomButtonsText(
         typedArray: TypedArray
     ) {
         val textPositiveButton =
-            typedArray.getString(R.styleable.YearMonthPicker_textPositiveButton) ?: "Confirm"
-        btnPositive.text = textPositiveButton
+            typedArray.getString(R.styleable.YearMonthPicker_textPositiveButton)
+        setPositiveButtonText(textPositiveButton)
 
         val textNegativeButton =
-            typedArray.getString(R.styleable.YearMonthPicker_textNegativeButton) ?: "Dismiss"
-        btnNegative.text = textNegativeButton
+            typedArray.getString(R.styleable.YearMonthPicker_textNegativeButton)
+        setNegativeButtonText(textNegativeButton)
 
         val textColorPositiveButton =
             typedArray.getColor(R.styleable.YearMonthPicker_colorTextPositiveButton, Color.WHITE)
-        btnPositive.setTextColor(ColorStateList.valueOf(textColorPositiveButton))
+        setColorPositiveButtonText(textColorPositiveButton)
 
         val textColorNegativeButton =
             typedArray.getColor(R.styleable.YearMonthPicker_colorTextNegativeButton, Color.BLACK)
-        btnNegative.setTextColor(ColorStateList.valueOf(textColorNegativeButton))
+        setColorNegativeButtonText(textColorNegativeButton)
     }
 
-    private fun MonthYearPickerBinding.setupTitle(
+    private fun setupTitle(
         typedArray: TypedArray
     ) {
         val textTitle = typedArray.getString(R.styleable.YearMonthPicker_textTitle)
-        tvTitle.text = textTitle ?: "Month and Year Picker"
+        setTitleText(textTitle)
 
         val colorTitle = typedArray.getColor(R.styleable.YearMonthPicker_colorTitle, Color.BLACK)
-        tvTitle.setTextColor(colorTitle)
+        setColorTitleText(colorTitle)
 
         val textSizeTitle =
-            typedArray.getDimension(R.styleable.YearMonthPicker_textSizeTitle, 28f)
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeTitle)
+            typedArray.getDimensionPixelSize(R.styleable.YearMonthPicker_textSizeTitle,
+                28).spToPp(context)
+        setTextSizeTitle(textSizeTitle)
+
+        val isShowTitle = typedArray.getBoolean(R.styleable.YearMonthPicker_isShowTitle, true)
+        setIsVisibleTitle(isShowTitle)
     }
 
-//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-//        val desiredWidth = 330
-//
-//        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-//        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-//
-//        val height = MeasureSpec.getSize(heightMeasureSpec)
-//        val width = when (widthMode) {
-//            MeasureSpec.EXACTLY -> widthSize
-//            MeasureSpec.AT_MOST -> min(desiredWidth, widthSize)
-//            else -> desiredWidth
-//        }
-//
-//        setMeasuredDimension(width, height)
-//    }
+    fun setListener(listener: OnBottomButtonClickListener?) : YearMonthPicker{
+        return this.apply { this.listener = listener }
+    }
+
+    fun setTitleText(text: String?): YearMonthPicker{
+        return this.apply { binding.tvTitle.text = text ?: "Month and Year Picker" }
+    }
+
+    fun setColorTitleText(color: Int): YearMonthPicker{
+        return this.apply { binding.tvTitle.setTextColor(color)}
+    }
+
+    fun setTextSizeTitle(sizeSp: Number): YearMonthPicker{
+        return this.apply { binding.tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, sizeSp.pxToSp(context)) }
+    }
+
+    fun setIsVisibleTitle(isShowTitle: Boolean): YearMonthPicker{
+        return this.apply { binding.tvTitle.isVisible = isShowTitle }
+    }
+
+    fun setPositiveButtonText(text: String?): YearMonthPicker{
+        return this.apply { binding.btnPositive.text = text ?: "Confirm" }
+    }
+
+    fun setNegativeButtonText(text: String?): YearMonthPicker{
+        return this.apply { binding.btnNegative.text = text ?: "Dismiss" }
+    }
+
+    fun setColorPositiveButtonText(color:Int): YearMonthPicker{
+        return this.apply { binding.btnPositive.setTextColor(color) }
+    }
+
+    fun setColorNegativeButtonText(color:Int): YearMonthPicker{
+        return this.apply { binding.btnNegative.setTextColor(color) }
+    }
+
+    fun setBackgroundPositiveButton(resource: Int): YearMonthPicker{
+        return this.apply { binding.btnPositive.setBackgroundResource(resource) }
+    }
+
+    fun setBackgroundNegativeButton(resource: Int): YearMonthPicker{
+        return this.apply { binding.btnNegative.setBackgroundResource(resource) }
+    }
+
+    fun setTintPositiveButton(color: Int): YearMonthPicker{
+        return this.apply {
+            if (color != 0) {
+                binding.btnPositive.backgroundTintList = ColorStateList.valueOf(color)
+            }
+        }
+    }
+
+    fun setTintNegativeButton(color: Int): YearMonthPicker{
+        return this.apply {
+            if (color != 0) {
+                binding.btnNegative.backgroundTintList = ColorStateList.valueOf(color)
+            }
+        }
+    }
+
+    fun setTextColorActiveButton(color: Int):YearMonthPicker{
+        return this.apply {
+            textColorActiveButton = color
+            binding.btnChoiceMonth.setTextColor(ColorStateList.valueOf(textColorActiveButton))
+        }
+    }
+
+    fun setTextColorDisactiveButton(color: Int):YearMonthPicker{
+        return this.apply {
+            textColorDisactiveButton = color
+            binding.btnChoiceYear.setTextColor(ColorStateList.valueOf(textColorDisactiveButton))
+        }
+    }
+
+    fun setBackgroundActiveButton(resource: Int): YearMonthPicker{
+        return this.apply {
+            bgActiveButton = resource
+            binding.btnChoiceMonth.setBackgroundResource(bgActiveButton)
+        }
+    }
+
+    fun setBackgroundDisactiveButton(resource: Int): YearMonthPicker{
+        return this.apply {
+            bgDisactiveButton = resource
+            binding.btnChoiceYear.setBackgroundResource(bgDisactiveButton)
+        }
+    }
+
+    fun setTintActiveButton(resource: Int): YearMonthPicker{
+        return this.apply {
+            if (resource != 0) {
+                bgTintActiveButton = resource
+                binding.btnChoiceMonth.backgroundTintList = ColorStateList.valueOf(bgTintActiveButton)
+            }
+        }
+    }
+
+    fun setTintDisactiveButton(resource: Int): YearMonthPicker{
+        return this.apply {
+            if (resource != 0) {
+                bgTintDisactiveButton = resource
+                binding.btnChoiceYear.backgroundTintList = ColorStateList.valueOf(bgTintDisactiveButton)
+            }
+        }
+    }
+
+    fun setTextColorActiveItem(color: Int): YearMonthPicker{
+        return this.apply {
+            textColorActiveItem = color
+            resetTextColorActiveItemInAdapters()
+        }
+    }
+
+    fun setTextColorDisactiveItem(color: Int): YearMonthPicker{
+        return this.apply {
+            textColorDisactiveItem = color
+            resetTextColorDisactiveItemInAdapters()
+        }
+    }
+
+    fun setBackgroundActiveItem(resource: Int): YearMonthPicker{
+        return this.apply {
+            backgroundActiveItem = resource
+            resetBackgroundActiveItemInAdapters()
+        }
+    }
+
+    fun setBackgroundDisactiveItem(resource: Int): YearMonthPicker{
+        return this.apply {
+            backgroundDisactiveItem = resource
+            resetBackgroundDisactiveItemInAdapters()
+        }
+    }
+
+
+    private fun resetBackgroundActiveItemInAdapters(){
+        monthAdapter.backgroundActiveItem = backgroundActiveItem
+        yearAdapter.backgroundActiveItem = backgroundActiveItem
+    }
+
+    private fun resetBackgroundDisactiveItemInAdapters(){
+        monthAdapter.backgroundDisactiveItem = backgroundDisactiveItem
+        yearAdapter.backgroundDisactiveItem = backgroundDisactiveItem
+    }
+
+    private fun resetTextColorActiveItemInAdapters(){
+        monthAdapter.textColorActiveItem = textColorActiveItem
+        yearAdapter.textColorActiveItem = textColorActiveItem
+    }
+
+    private fun resetTextColorDisactiveItemInAdapters(){
+        monthAdapter.textColorDisactiveItem = textColorDisactiveItem
+        yearAdapter.textColorDisactiveItem = textColorDisactiveItem
+    }
+
 }

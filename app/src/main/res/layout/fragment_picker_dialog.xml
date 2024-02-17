@@ -7,41 +7,16 @@
     tools:context=".screen.MainActivity">
 
     <ru.topbun.customviewyearandmonthpicker.view.YearMonthPicker
+        android:id="@+id/month_year_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="330dp"
         android:layout_marginHorizontal="30dp"
         android:background="@color/white"
         android:elevation="4dp"
-
-        app:textTitle="topbun"
+        app:textTitle="Дата пикер"
+        app:isShowTitle="true"
         app:textSizeTitle="28sp"
-        app:colorTitle="#FF55D5"
-
-        app:textNegativeButton="Отменчик"
-        app:colorTextNegativeButton="@color/white"
-        app:backgroundNegativeButton="@drawable/background_button_active"
-        app:backgroundTintNegativeButton="#E11818"
-
-        app:textPositiveButton="Чивапчича"
-        app:colorTextPositiveButton="@color/black"
-        app:backgroundPositiveButton="@color/white"
-        app:backgroundTintPositiveButton="@color/white"
-
-        app:backgroundActiveButton="@drawable/background_button_active"
-        app:backgroundDisactiveButton="@drawable/background_button_disactive"
-
-        app:colorTextActiveButton="@color/black"
-        app:colorTextDisactiveButton="@color/white"
-
-        app:backgroundTintActiveButton="#FFD500"
-        app:backgroundTintDisactiveButton="#6AFF00"
-
-        app:backgroundActiveItem="@drawable/background_active_item"
-        app:colorTextActiveItem="#4D9DFF"
-
-        app:colorTextDisactiveItem="#FA8787"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="25dp"
+    app:cardUseCompatPadding="true">
+
+
+    <ru.topbun.yearmonthpicker.view.YearMonthPicker
+        android:id="@+id/month_year_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="330dp"
+
+        app:isShowTitle="true"
+        app:textTitle="MyApp"
+        app:colorTitle="@color/black"
+        app:textSizeTitle="30sp"
+
+        app:textPositiveButton="positive text"
+        app:textNegativeButton="negative text"
+        app:colorTextPositiveButton="@color/blue"
+        app:colorTextNegativeButton="@color/orange"
+
+        app:backgroundPositiveButton="@drawable/background_button_filled"
+        app:backgroundNegativeButton="@drawable/background_button_filled"
+        app:backgroundTintPositiveButton="@color/cyan"
+        app:backgroundTintNegativeButton="@color/light_green"
+
+        app:colorTextActiveButton="@color/black"
+        app:colorTextDisactiveButton="@color/red"
+
+        app:backgroundActiveButton="@drawable/background_button_filled"
+        app:backgroundDisactiveButton="@color/transparent"
+        app:backgroundTintActiveButton="@color/purple"
+        app:backgroundTintDisactiveButton="@color/transparent"
+
+        app:backgroundActiveItem="@drawable/background_button_filled"
+        app:backgroundDisactiveItem="@color/transparent"
+        app:colorTextActiveItem="@color/blue"
+        app:colorTextDisactiveItem="@color/orange"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.cardview.widget.CardView>

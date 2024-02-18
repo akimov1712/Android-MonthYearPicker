@@ -1,10 +1,8 @@
-package ru.topbun.customviewyearandmonthpicker.screen.adapter
+package ru.topbun.customviewyearandmonthpicker.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
-import ru.topbun.customviewyearandmonthpicker.R
 import ru.topbun.customviewyearandmonthpicker.databinding.ItemPickBinding
 
 class PickAdapter(

@@ -1,4 +1,4 @@
-package ru.topbun.customviewyearandmonthpicker.screen.adapter
+package ru.topbun.yearmonthpicker.view.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 

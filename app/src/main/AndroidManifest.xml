@@ -13,7 +13,7 @@
         android:theme="@style/Theme.CustomViewYearAndMonthPicker"
         tools:targetApi="31">
         <activity
-            android:name=".screen.MainActivity"
+            android:name="ru.topbun.yearmonthpicker.screen.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

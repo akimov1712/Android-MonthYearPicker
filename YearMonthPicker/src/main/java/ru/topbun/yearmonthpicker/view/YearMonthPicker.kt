@@ -1,4 +1,4 @@
-package ru.topbun.customviewyearandmonthpicker.view
+package ru.topbun.yearmonthpicker.view
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -10,10 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import ru.topbun.customviewyearandmonthpicker.Const
-import ru.topbun.customviewyearandmonthpicker.R
-import ru.topbun.customviewyearandmonthpicker.databinding.MonthYearPickerBinding
-import ru.topbun.yearmonthpicker.screen.adapter.PickAdapter
+import ru.topbun.yearmonthpicker.Const
+import ru.topbun.yearmonthpicker.R
+import ru.topbun.yearmonthpicker.databinding.MonthYearPickerBinding
+import ru.topbun.yearmonthpicker.view.adapter.PickAdapter
 import ru.topbun.yearmonthpicker.utils.getCurrentMonth
 import ru.topbun.yearmonthpicker.utils.getCurrentYear
 import ru.topbun.yearmonthpicker.utils.getTimeMillisFromMonthAndYear
@@ -129,11 +129,11 @@ class YearMonthPicker @JvmOverloads constructor(
             }
             btnNegative.setOnClickListener {
                 val timeStamp = getTimeMillisFromMonthAndYear(choiceMonth, choiceYear)
-                listener?.invoke(ru.topbun.yearmonthpicker.BottomButtonAction.NEGATIVE, timeStamp)
+                listener?.invoke(BottomButtonAction.NEGATIVE, timeStamp)
             }
             btnPositive.setOnClickListener {
                 val timeStamp = getTimeMillisFromMonthAndYear(choiceMonth, choiceYear)
-                listener?.invoke(ru.topbun.yearmonthpicker.BottomButtonAction.POSITIVE, timeStamp)
+                listener?.invoke(BottomButtonAction.POSITIVE, timeStamp)
             }
         }
     }

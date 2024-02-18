@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@color/white"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
-    tools:context="ru.topbun.yearmonthpicker.screen.MainActivity">
+    tools:context=".screen.MainActivity">
 
     <TextView
         android:id="@+id/tv_title"

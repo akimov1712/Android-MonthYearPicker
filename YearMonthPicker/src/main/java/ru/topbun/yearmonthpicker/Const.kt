@@ -1,6 +1,6 @@
-package ru.topbun.customviewyearandmonthpicker
+package ru.topbun.yearmonthpicker
 
-import ru.topbun.yearmonthpicker.screen.adapter.PickEntity
+import ru.topbun.yearmonthpicker.view.adapter.PickEntity
 import ru.topbun.yearmonthpicker.utils.getCurrentMonth
 import ru.topbun.yearmonthpicker.utils.getCurrentYear
 

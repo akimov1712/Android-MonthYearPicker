@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CustomViewYearAndMonthPicker" parent="Theme.Material3.Light.NoActionBar">
+
+    </style>
+
+    <style name="Theme.CustomViewYearAndMonthPicker" parent="Base.Theme.CustomViewYearAndMonthPicker" />
+
+    <style name="styleTextButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+</resources>

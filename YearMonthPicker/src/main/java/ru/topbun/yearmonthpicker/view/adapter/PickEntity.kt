@@ -1,4 +1,4 @@
-package ru.topbun.customviewyearandmonthpicker.screen.adapter
+package ru.topbun.yearmonthpicker.view.adapter
 
 data class PickEntity(
     val id: Int,

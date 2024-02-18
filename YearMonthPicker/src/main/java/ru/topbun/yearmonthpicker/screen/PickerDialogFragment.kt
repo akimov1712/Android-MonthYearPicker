@@ -1,4 +1,4 @@
-package ru.topbun.customviewyearandmonthpicker.screen
+package ru.topbun.yearmonthpicker.screen
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import ru.topbun.customviewyearandmonthpicker.R
-import ru.topbun.customviewyearandmonthpicker.databinding.FragmentPickerDialogBinding
-import ru.topbun.customviewyearandmonthpicker.view.OnBottomButtonClickListener
+import ru.topbun.yearmonthpicker.R
+import ru.topbun.yearmonthpicker.databinding.FragmentPickerDialogBinding
+import ru.topbun.yearmonthpicker.view.OnBottomButtonClickListener
 
 
 class PickerDialogFragment : DialogFragment() {

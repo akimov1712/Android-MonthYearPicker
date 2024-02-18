@@ -48,7 +48,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.akimov1712"
             artifactId = "Android-MonthYearPicker"
-            version = "0.0.0"
+            version = "9.9.9"
 
             afterEvaluate {
                 from(components["release"])

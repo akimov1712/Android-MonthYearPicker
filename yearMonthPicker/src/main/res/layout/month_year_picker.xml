@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="30dp"
     android:layout_gravity="center"
+    android:layout_marginHorizontal="30dp"
     android:background="@color/white"
-    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
-    tools:context=".screen.MainActivity">
+    tools:context=".screen.MainActivity"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
         android:id="@+id/tv_title"

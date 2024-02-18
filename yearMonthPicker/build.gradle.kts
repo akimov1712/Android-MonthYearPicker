@@ -43,27 +43,6 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("mavenRelease") {
-                groupId = "ru.topbun"
-                artifactId = "yearmonthpicker"
-                version = "1.0"
-
-                from(components["release"])
-            }
-            create<MavenPublication>("mavenDebug") {
-                groupId = "ru.topbun"
-                artifactId = "yearmonthpicker"
-                version = "1.0"
-
-                from(components["debug"])
-            }
-        }
-    }
-}
-
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -72,4 +51,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }

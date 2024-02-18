@@ -8,10 +8,11 @@
     android:layout_gravity="center"
     app:cardElevation="5dp"
     app:cardCornerRadius="25dp"
-    app:cardUseCompatPadding="true"
-    tools:context="ru.topbun.yearmonthpicker.screen.MainActivity">
+    android:backgroundTint="@color/white"
+    app:cardUseCompatPadding="true">
 
-    <ru.topbun.yearmonthpicker.YearMonthPicker
+
+    <ru.topbun.yearmonthpicker.view.YearMonthPicker
         android:id="@+id/month_year_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

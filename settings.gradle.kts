@@ -14,5 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CustomViewYearAndMonthPicker"
-include(":app")
 include(":yearMonthPicker")

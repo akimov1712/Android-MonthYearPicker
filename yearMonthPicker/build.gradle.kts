@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.library")
+    id("com.android.library") version "8.1.1"
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
 }
@@ -25,14 +25,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures{
-        viewBinding = true
+        jvmTarget = "18"
     }
     publishing {
         multipleVariants {
@@ -40,6 +37,9 @@ android {
             withJavadocJar()
             withSourcesJar()
         }
+    }
+    buildFeatures{
+        viewBinding = true
     }
 }
 

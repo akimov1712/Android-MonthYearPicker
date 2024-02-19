@@ -62,7 +62,7 @@ There are 2 ways to set attributes. From XML markup or from code
 
 By creating the MonthYearPicker from code, you have an additional attribute available for customization, **setCornerRadius(25f)**. Since calling the picker using the **show()** method from the code opens a DialogFragment that has rounding, you can also customize it if needed
 
-First
+First (XML)
 
 ```
  <ru.topbun.yearmonthpicker.view.YearMonthPicker
@@ -112,7 +112,7 @@ First
         app:layout_constraintTop_toTopOf="parent" />
 ```
 
-Second
+Second (CODE)
 
 ```
 binding.dialogPicker

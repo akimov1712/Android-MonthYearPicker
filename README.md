@@ -18,7 +18,7 @@ dependencyResolutionManagement {
 
 ```
 dependencies {
-   implementation 'com.github.akimov1712:MonthAndYearPicker:9.9.9'
+   implementation 'com.github.akimov1712:MonthAndYearPicker:1.0.0'
 }
 ```
 

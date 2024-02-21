@@ -1,10 +1,10 @@
-### How to use
+## How to use
 
 To get a Git project into your build:
 
 **Step 1**. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
-```
+```kotlin
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 
 **Step 2.** Add the dependency
 
-```
+```kotlin
 dependencies {
    implementation 'com.github.akimov1712:MonthAndYearPicker:1.0.0'
 }
@@ -25,8 +25,8 @@ dependencies {
 <img width="284" alt="Снимок экрана 2024-02-18 в 13 28 39" src="https://github.com/akimov1712/MonthAndYearPicker/assets/107273987/c5c8de24-04b4-4f83-92b9-56f539e95177">
 
 
-###  Usage
-```
+##  Usage
+```xml
 <ru.topbun.yearmonthpicker.view.YearMonthPicker
     android:id="@+id/month_year_picker"
     android:layout_width="wrap_content"
@@ -35,7 +35,7 @@ dependencies {
 
 Or
 
-```
+```kotlin
 private fun openDialog(){
         // FragmentTransaction, we'll need to show dialogFragment
         val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -46,14 +46,14 @@ private fun openDialog(){
         dialogPicker
             .setTitleText("MyApp")
             .setColorTitleText(Color.BLACK)
-           ... other settings
+            // other settings
             
         // Show the DialogFragment by specifying the tag you like
         dialogPicker.show(fragmentTransaction, "picker")
 }
 ```
 
-### Attributes
+## Attributes
 
 There are many different attributes in the library that allow you to customize the Picker the way you want it.
 There are 2 ways to set attributes. From XML markup or from code
@@ -64,7 +64,7 @@ By creating the MonthYearPicker from code, you have an additional attribute avai
 
 First (XML)
 
-```
+```xml
  <ru.topbun.yearmonthpicker.view.YearMonthPicker
         android:id="@+id/month_year_picker"
         android:layout_width="wrap_content"
@@ -114,7 +114,7 @@ First (XML)
 
 Second (CODE)
 
-```
+```kotlin
 binding.dialogPicker
             .setTitleText("MyApp")
             .setColorTitleText(Color.BLACK)
@@ -171,7 +171,7 @@ binding.dialogPicker
             }
 ```
 
-### License
+## License
 
 ```
 MIT License
